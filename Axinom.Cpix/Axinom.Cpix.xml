@@ -1,0 +1,785 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axinom.Cpix</name>
+    </assembly>
+    <members>
+        <member name="T:Axinom.Cpix.AudioFilter">
+            <summary>
+            An audio filter attached to a new content key assignment rule.
+            Only audio can match this filter - any other type of content key context is never a match.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.AudioFilter.MinChannels">
+            <summary>
+            The minimum number of channels that must be present in the content key context (inclusive).
+            
+            If null, the minimum channel count is zero.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.AudioFilter.MaxChannels">
+            <summary>
+            The maximum number of channels that must be present in the content key context (inclusive).
+            
+            If null, the maximum channel count is infinity.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.AudioFilter.Validate">
+            <summary>
+            Validates the data in the object before it is accepted for use by this library.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.BitrateFilter">
+            <summary>
+            A read-only view of a bitrate filter attached to a content key assignment rule.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.BitrateFilter.MinBitrate">
+            <summary>
+            The minimum nominal bitrate of the content key context (inclusive).
+            
+            If null, the minimum bitrate is zero.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.BitrateFilter.MaxBitrate">
+            <summary>
+            The maximum nominal bitrate of the content key context (inclusive).
+            
+            If null, the maximum bitrate is infinity.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.BitrateFilter.Validate">
+            <summary>
+            Validates the data in the object before it is accepted for use by this library.
+            </summary>
+        </member>
+        <member name="F:Axinom.Cpix.Constants.DocumentKeyLengthInBytes">
+            <summary>
+            AES-256, so 256-bit key.
+            </summary>
+        </member>
+        <member name="F:Axinom.Cpix.Constants.MacKeyLengthInBytes">
+            <summary>
+            HMAC-SHA512, so 512-bit key.
+            </summary>
+        </member>
+        <member name="F:Axinom.Cpix.Constants.TopLevelXmlElementOrder">
+            <summary>
+            The correct order of the entity collection container elements in CPIX XML structure.
+            The schema specifies an ordered sequence and we need to ensure that we always generate
+            the elements in the correct XML document order, regardless of their oder in time.
+            
+            Inside the top-level elements, things are simple and life is easy. All we care about is the top layer.
+            
+            Values are name-namespace pairs.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKey.Id">
+            <summary>
+            Unique ID of the content key.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKey.Value">
+            <summary>
+            Gets or sets the value of the content key. Must be 128 bits (16 bytes) long.
+            Null if the content key was loaded from a CPIX document and could not be decrypted.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKey.ExplicitIv">
+            <summary>
+            Get or sets the optional IV that is to be explicitly associated with the
+            content key. The IV must be 128 bits (16 bytes) long. A common use case
+            involves FairPlay DRM, where the IV is expected to be transported
+            together with the content key, instead of being extracted from the
+            content. Otherwise, the use of this IV is not recommended and it should
+            be ignored even if set.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKey.IsLoadedEncryptedKey">
+            <summary>
+            Gets whether the content key is a loaded encrypted content key.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.ContentKeyContext">
+            <summary>
+            Defines the context key context that content keys can be resolved for, as defined by usage rules.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.Type">
+            <summary>
+            Type of the data represented by the context.
+            If null, the context will not match any filters that require a specific type of data.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.Bitrate">
+            <summary>
+            Nominal bitrate.
+            If null, the context will not match any filters that require a specific bitrate.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.AudioChannelCount">
+            <summary>
+            Number of audio channels. Only valid if Type == Audio.
+            If null, the context will not match any filters that require a specific audio channel count.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.PicturePixelCount">
+            <summary>
+            Number of pixels present in the encoded pictures. Only valid if Type == Video.
+            If null, the context will not match any filters that require a specific picture pixel count.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.VideoFramesPerSecond">
+            <summary>
+            Nominal video frames per second. Only valid if Type == Video.
+            If null, the context will not match any filters that require a specific value;
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.WideColorGamut">
+            <summary>
+            Whether the picture uses WCG. Only valid if Type == Video.
+            If null, the context will not match any filters that require a specific value;
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.HighDynamicRange">
+            <summary>
+            Whether the picture uses HDR. Only valid if Type == Video.
+            If null, the context will not match any filters that require a specific value;
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.ContentKeyContext.Labels">
+            <summary>
+            All the labels associated with the content key context.
+            If null, the context will not match any filters that require a specific label.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.ContentKeyContext.Validate">
+            <summary>
+            Validates the content key context before use.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.ContentKeyResolveAmbiguityException">
+            <summary>
+            Thrown when resolving a content key for a content key context results in ambiguity.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.ContentKeyResolveException">
+            <summary>
+            Thrown when it is not possible to resolve a content key for a context key context.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.ContentKeyResolveImpossibleException">
+            <summary>
+            Thrown when resolving content keys is impossible.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.CpixDocument">
+            <summary>
+            A CPIX document, either created anew for saving or loaded from file for reading and/or modifying.
+            </summary>
+            <remarks>
+            All content keys are automatically encrypted on save and delivery data generated for all recipients.
+            If no recipients are defined then the content keys are saved in the clear. Converting from one scenario
+            to the other is fine, but you must then re-add all content keys that were loaded from an existing document.
+            
+            There are two scopes of digital signatures supported by this implementation:
+            * Any number of signatures may be applied to each entity collection (*List elements in the XML).
+            * One signature may be applied to the entire document.
+            
+            Any signatures whose scopes do not match the above data sets are validated on load but otherwise ignored,
+            though validated again on save to ensure that files that fail verification are inadvertently not created.
+            
+            To modify any part of a signed document, you must first remove the signature.
+            To modify any signed entity collection, you must first remove all signatures on it.
+            You may immediately re-apply any removed signatures, if you wish, provided that you have the private keys.
+            
+            You must have a delivery key in order to modify a loaded set of content keys. If you do not have a delivery key,
+            you will be able to see content key metadata and cannot add new content keys to the document.
+            </remarks>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.Recipients">
+            <summary>
+            Gets the set of recipients that the CPIX document is meant to be securely delivered to.
+            
+            If this collections contains entries, the content keys within the CPIX document are encrypted.
+            If this collection is empty, the content keys within the CPIX document are not encrypted.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.ContentKeys">
+            <summary>
+            Gets the set of content keys stored in the CPIX document.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.UsageRules">
+            <summary>
+            Gets the set of usage rules stored in the CPIX document.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.DrmSystems">
+            <summary>
+            Gets the set of DRM system signaling entries stored in the CPIX document.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.ContentKeysAreReadable">
+            <summary>
+            Whether the values of content keys are readable.
+            If false, you can only read the metadata, not the values themselves.
+            
+            This is always true for new documents. This may be false for loaded documents
+            if the content keys are encrypted and we do not possess any of the delivery keys.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.IsReadOnly">
+            <summary>
+            Gets whether the document is read-only.
+            
+            This can be the case if you are dealing with a loaded CPIX document that contains a signature that includes the
+            entire document in scope. You must remove or re-apply the signature to make the document writable.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.SignedBy">
+            <summary>
+            Gets or sets the certificate of the identity that has signed or will sign the document as a whole.
+            
+            You must have the private key of the identity who you set as the signer.
+            
+            Set to null to remove the signature from the document.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.ResolveContentKey(Axinom.Cpix.ContentKeyContext)">
+            <summary>
+            Finds a suitable content key for a content key context.
+            
+            All content key usage rules are evaluated and exactly one match is expected. No match
+            or multiple matches are considered an error condition (ambiguities are not allowed).
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Save(System.String)">
+            <summary>
+            Saves the CPIX document to a file, overwriting the existing contents.
+            If any exception is thrown, the document may be left in an invalid state.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Save(System.IO.Stream)">
+            <summary>
+            Saves the CPIX document to a stream. If any exception is thrown, the document may be left in an invalid state.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Load(System.String,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Loads a CPIX document from a file, decrypting it using the key pairs
+            of the identity referenced by the provided certificate, if required.
+            </summary>
+            <remarks>
+            All digital signatures are verified. Note that a valid signature does not mean that the signer
+            is trusted! It is the caller's responsibility to ensure that any signers are trusted!
+            </remarks>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Load(System.String,System.Collections.Generic.IReadOnlyCollection{System.Security.Cryptography.X509Certificates.X509Certificate2})">
+            <summary>
+            Loads a CPIX document from a file, decrypting it using the key pairs
+            of the identities referenced by the provided certificates, if required.
+            </summary>
+            <remarks>
+            All digital signatures are verified. Note that a valid signature does not mean that the signer
+            is trusted! It is the caller's responsibility to ensure that any signers are trusted!
+            </remarks>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Load(System.IO.Stream,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Loads a CPIX document from a stream, decrypting it using the key pairs
+            of the identity referenced by the provided certificate, if required.
+            </summary>
+            <remarks>
+            All digital signatures are verified. Note that a valid signature does not mean that the signer
+            is trusted! It is the caller's responsibility to ensure that any signers are trusted!
+            </remarks>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.Load(System.IO.Stream,System.Collections.Generic.IReadOnlyCollection{System.Security.Cryptography.X509Certificates.X509Certificate2})">
+            <summary>
+            Loads a CPIX document from a stream, decrypting it using the key pairs
+            of the identities referenced by the provided certificates, if required.
+            </summary>
+            <remarks>
+            All digital signatures are verified. Note that a valid signature does not mean that the signer
+            is trusted! It is the caller's responsibility to ensure that any signers are trusted!
+            </remarks>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.RecipientCertificates">
+            <summary>
+            Gets the collection of certificates referencing private keys that we can potentially use to receive CPIX data.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.DocumentKey">
+            <summary>
+            Gets the document key or null if no document key has been loaded/generated
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.MacKey">
+            <summary>
+            Gets the MAC key or null if no MAC key has been loaded/generated.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.GenerateKeys">
+            <summary>
+            Generates a new document and MAC key.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CpixDocument.VerifyIsNotReadOnly">
+            <summary>
+            Throws an exception if the document is read-only.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.CpixDocument.EntityCollections">
+            <summary>
+            All the entity collections *in processing order*.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.CryptographyHelpers.SignXmlElement(System.Xml.XmlDocument,System.String,System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Signs an XML element referenced by ID and places the signature element under the document root element.
+            Pass an empty string as the element to sign the entire document.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.DrmSignalingHelpers">
+            <summary>
+            Helpers for generating DRM signaling data in common scenarios. These are primarily meant for generating
+            realistic example data but may also be suitable for production scenarios. The flexibility can be rather limited,
+            though.
+            
+            You can use the decoders at https://tools.axinom.com/ to verify the generated structures are valid.
+            
+            No guarantees are made about API compatibility here - this is left public mostly because it is annoying
+            code to write and if we can help someone out by having them use this tested implementation, so be it.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.DrmSignalingHelpers.AddDefaultSignalingForAllKeys(Axinom.Cpix.CpixDocument)">
+            <summary>
+            Adds default DRM system signaling entries for all keys.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.DrmSignalingHelpers.CreatePsshBox(System.Guid,System.Byte[])">
+            <summary>
+            Creates a PSSH (Protection System Specific Header) box suitable for embedding into a media
+            file that follows the ISO Base Media File Format specification.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.DrmSignalingHelpers.ToBigEndianByteArray(System.Guid)">
+            <summary>
+            Serializes the GUID to a byte array, using the big endian format for all components.
+            This format is often used by non-Microsoft tooling.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.SystemId">
+            <summary>
+            Gets or sets the system ID of the DRM system that is being signaled.
+            Refer to the DASH-IF System ID registry for a list of DRM system IDs.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.KeyId">
+            <summary>
+            Gets or sets the ID of the content key the DRM system signaling entry
+            references.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.Pssh">
+            <summary>
+            Gets or sets the full PSSH box, encoded as base64, that shall be added to
+            ISOBMFF files encrypted with the content key referenced by the DRM system
+            signaling entry. This data should only be associated with a hierarchical
+            leaf key.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.ContentProtectionData">
+            <summary>
+            Gets or sets the content protection data, which is the full well-formed
+            XML fragment that shall be added under the ContentProtection element in a
+            DASH manifest. This must be a UTF-8 XML string without a byte order mark.
+            This data shall not be associated with a hierarchical leaf key.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.HlsSignalingData">
+            <summary>
+            Gets or sets the HLS signaling data to be inserted in HLS master and/or
+            media playlists. The data includes #EXT-X-KEY or #EXT-X-SESSION-KEY
+            tags (depending on the playlist), along with potential proprietary tags.
+            This data shall not be associated with a hierarchical leaf key.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.SmoothStreamingProtectionHeaderData">
+            <summary>
+            Gets or sets the Smooth Streaming Protection Header data, to be used as
+            the inner text of the ProtectionHeader XML element in a Smooth Streaming
+            manifest. This is UTF-8 text without a byte order mark. This data shall
+            not be associated with a hierarchical leaf key.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.DrmSystem.HdsSignalingData">
+            <summary>
+            Gets or sets the HDS signaling data, which is the full
+            "drmAdditionalHeader" XML element, intended to be used in a Flash media
+            manifest. This is a UTF-8 XML string without a byte order mark. This data
+            shall not be associated with a hierarchical leaf key.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.Entity">
+            <summary>
+            Base class for all types of CPIX entities. For internal use only.
+            </summary>
+            <remarks>
+            Acts as an internal interface to the entities, exposing internal general purpose entity features.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Cpix.Entity.ValidateNewEntity(Axinom.Cpix.CpixDocument)">
+            <summary>
+            Validates that the current state of the entity is valid for a newly created/added entity.
+            The document is supplied to facilitate cross-checking with other parts of the document.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Entity.ValidateLoadedEntity(Axinom.Cpix.CpixDocument)">
+            <summary>
+            Validates that the current state of the entity is valid for a loaded entity.
+            The document is supplied to facilitate cross-checking with other parts of the document.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.EntityCollection`1">
+            <summary>
+            A collection of entities stored in a CPIX document.
+            </summary>
+            <remarks>
+            An item added to the collection must not be modified after Add().
+            An item retrieved from the collection must not be modified, ever.
+            
+            Violation of these constraints may lead to undefined behavior.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollection`1.Add(`0)">
+            <summary>
+            Adds a new item to the collection.
+            The item will be validated and should not be modified by the caller after this.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.EntityCollection`1.Count">
+            <summary>
+            Gets the number of items in the collection.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollection`1.SerializeEntity(System.Xml.XmlDocument,System.Xml.XmlNamespaceManager,System.Xml.XmlElement,`0)">
+            <summary>
+            Serializes an entity into the indicated container in the XML document, returning the newly created XML element.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollection`1.DeserializeEntity(System.Xml.XmlElement,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Deserializes an entity from an XML document, returning it.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollection`1.ValidateCollectionStateBeforeAdd(`0)">
+            <summary>
+            Performs collection-scope validation before an entity is added to the collection.
+            The entity has already passed individual validation, so this just concerns "global" state validation.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.EntityCollectionBase">
+            <summary>
+            Base class for entity collections. This contains all the functionality that does not depend
+            on the specific type of entity contained in the collection but is valid for all collections.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.EntityCollectionBase.Count">
+            <summary>
+            Gets the count of items in the collection.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.Clear">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.EntityCollectionBase.IsReadOnly">
+            <summary>
+            Gets whether the collection is read-only. Always returns true if the entire document is read-only.
+            
+            The collection is read-only if you are dealing with a loaded CPIX document that contains signatures covering this
+            collection. Remove any collection-scoped signatures and document-scoped signatures to make the collection writable.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.AddSignature(System.Security.Cryptography.X509Certificates.X509Certificate2)">
+            <summary>
+            Applies a digital signature to the collection.
+            
+            The signature is generated when the document is saved, so you can still modify the collection after this call.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.EntityCollectionBase.SignedBy">
+            <summary>
+            Gets the certificates of the identities that have signed this collection.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.RemoveAllSignatures">
+            <summary>
+            Removes all digital signatures that apply to this collection.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.EntityCollectionBase.ContainerName">
+            <summary>
+            Undecorated name of the XML element that serves as the container for this collection.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.SaveChanges(System.Xml.XmlDocument,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Saves any changes in this entity set to the supplied document.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.Load(System.Xml.XmlDocument,System.Xml.XmlNamespaceManager)">
+            <summary>
+            Loads the entity set from the supplied XML document.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.ValidateCollectionStateBeforeSave">
+            <summary>
+            Performs validation of the collection and its contents before it is saved.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.ValidateCollectionStateAfterLoad">
+            <summary>
+            Performs validation of the collection and its contents after it has been loaded.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.VerifyNotReadOnly">
+            <summary>
+            Throws an exception if the collection is read-only.
+            
+            You should first verify that the document is not read-only, to provide most specific user feedback.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.ValidateEntitiesBeforeSave">
+            <summary>
+            Performs validation of the collection's contents before it is saved.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.EntityCollectionBase.ValidateEntitiesAfterLoad">
+            <summary>
+            Performs validation of the collection's contents after it has been loaded.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.HlsSignalingData">
+            <summary>
+            Represents the DRM system signaling data to be inserted into HLS playlists.
+            </summary>
+        </member>
+        <member name="F:Axinom.Cpix.HlsSignalingData.MasterPlaylistData">
+            <summary>
+            Gets or sets the signaling data to be inserted into the HLS master
+            playlist. The data includes the EXT-X-SESSION-KEY tag along with any
+            proprietary tags. This is UTF-8 text without a byte order mark that may
+            contain multiple lines.
+            </summary>
+        </member>
+        <member name="F:Axinom.Cpix.HlsSignalingData.MediaPlaylistData">
+            <summary>
+            Gets or sets the signaling data to be inserted into the HLS media
+            playlist. The data includes the EXT-X-KEY tag along with any proprietary
+            tags. This is UTF-8 text without a byte order mark that may contain
+            multiple lines.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.Internal.DocumentRootElement">
+            <summary>
+            Just for creating a new blank document. The contents are serialized independently.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Internal.DrmSystemElement.LoadTimeValidate">
+            <summary>
+            Performs basic sanity check to ensure that all required fields are filled.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Internal.ContentKeyElement.LoadTimeValidate">
+            <summary>
+            Performs basic sanity check to ensure that all required fields are filled.
+            Both encrypted or clear values are acceptable (but not both at the same time).
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.Internal.DataElement.Secret">
+            <summary>
+            For our purposes, this is just a meaningless layer of nesting.
+            The content key is in this regardless of whether it is encrypted or not.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.Internal.SecretDataElement.PlainValue">
+            <summary>
+            Indicates that the data is a plain (nonencrypted) value.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Internal.DeliveryDataElement.LoadTimeValidate">
+            <summary>
+            Performs basic sanity check to ensure that all required fields are filled.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Internal.MacMethodElement.LoadTimeValidate">
+            <summary>
+            Performs basic sanity check to ensure that all required fields are filled.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.Internal.DocumentKeyElement.LoadTimeValidate">
+            <summary>
+            Performs basic sanity check to ensure that all required fields are filled.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.InvalidCpixDataException">
+            <summary>
+            Thrown when some loaded or supplied data is not suitable for use in a well-formed CPIX document.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.LabelFilter">
+            <summary>
+            A label filter attached to a new content key assignment rule.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.LabelFilter.Label">
+            <summary>
+            The label that must exist on a content key context that matches this filter.
+            The meaning of labels is implementation-defined - they are just arbitrary freeform strings.
+            
+            A null value is a syntax error.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.LabelFilter.Validate">
+            <summary>
+            Validates the data in the object before it is accepted for use by this library.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.MultiEndianBinaryWriter">
+            <summary>
+            Binary writer with variable byte endianness.
+            Note that text writing does not support big-endian byte order. This is for binary only.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.MultiEndianBinaryWriter.ByteOrder">
+            <summary>
+            Gets or sets the byte order the writer uses for its operations.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.Recipient">
+            <summary>
+            An identity that is authorized to access the content keys of a CPIX document.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.Recipient.Certificate">
+            <summary>
+            A certificate identifying the recipient and the asymmetric key used to secure communications.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.UsageRule.KeyId">
+            <summary>
+            The ID of the content key that this usage rule applies to.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.UsageRule.ContainsUnsupportedFilters">
+            <summary>
+            If true for a loaded usage rule, there were filters present in the CPIX document that are not supported
+            by the current implementation. Presence of such filters disables usage rule resolving for the entire document.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.VideoFilter">
+            <summary>
+            A video filter attached to a new content key assignment rule.
+            Only video can match this filter - any other type of content key context is never a match.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.MinPixels">
+            <summary>
+            The minimum number of pixels that must be present in the pictures in the content key context (inclusive).
+            
+            If null, the minimum required pixel count is 0.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.MaxPixels">
+            <summary>
+            The maximum number of pixels that must be present in the pictures in the content key context (inclusive).
+            
+            If null, the maximum required pixel count is infinity.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.HighDynamicRange">
+            <summary>
+            Whether the filter matches HDR or non-HDR data or both.
+            
+            If null, HDR-ness is ignored.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.WideColorGamut">
+            <summary>
+            Whether the filter matches WCG or non-WCG data or both.
+            
+            If null, WCG-ness is ignored.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.MinFramesPerSecond">
+            <summary>
+            The minimum (exclusive) framerate of the content key context.
+            
+            If null, the minimum framerate is 0.
+            </summary>
+        </member>
+        <member name="P:Axinom.Cpix.VideoFilter.MaxFramesPerSecond">
+            <summary>
+            The maximum (inclusive) framerate of the content key context.
+            
+            If null, the maximum framerate is infinity.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.VideoFilter.Validate">
+            <summary>
+            Validates the data in the object before it is accepted for use by this library.
+            </summary>
+        </member>
+        <member name="T:Axinom.Cpix.WeakCertificateException">
+            <summary>
+            Thown when an attempt is made to use a certificate that is associated with weak cryptographic parameters.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.Deserialize``1(System.Xml.XmlElement)">
+            <summary>
+            XML-deserializes an object of type T from an XmlElement.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.AppendChildAndReuseNamespaces``1(``0,System.Xml.XmlElement)">
+            <summary>
+            Appends a child element XML-serialized from an object of type T and reuses already-declared namespaces in doing so.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.CreateXmlElementAndReuseNamespaces``1(``0,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Transforms an object of type T to an XmlElement via XML-serialization,
+            reusing existing namespaces instead of re-declaring them.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.Serialize``1(``0)">
+            <summary>
+            XML-serializes an object of type T, returning it as an XmlDocument.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.InsertTopLevelCpixXmlElementInCorrectOrder(System.Xml.XmlElement,System.Xml.XmlDocument)">
+            <summary>
+            Top-level CPIX elements must be inserted to the document in a specific order, as the CPIX document
+            is strictly ordered. This method will automatically insert elements in the correct order.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.PrettyPrintXml(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Loads, reformats/indents and saves an XML document. Used primarily just for testing with formatted XML.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.CreateCpixNamespaceManager(System.Xml.XmlDocument)">
+            <summary>
+            Creates a namespace manager with some convenient namespaces predefined.
+            </summary>
+        </member>
+        <member name="M:Axinom.Cpix.XmlHelpers.DeclareNamespace(System.Xml.XmlElement,System.String,System.String)">
+            <summary>
+            Adds a namespace declaration attribute.
+            </summary>
+        </member>
+    </members>
+</doc>

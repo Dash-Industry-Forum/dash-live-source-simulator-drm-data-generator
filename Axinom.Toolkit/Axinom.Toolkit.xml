@@ -1,0 +1,1456 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axinom.Toolkit</name>
+    </assembly>
+    <members>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.BackgroundThreadInvoke(Axinom.Toolkit.HelpersContainerClasses.Async,System.Action)">
+            <summary>
+            Asynchronously invokes a long-running action on a new background thread.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="action"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Base64DecodeString(Axinom.Toolkit.HelpersContainerClasses.Convert,System.String,System.Text.Encoding)">
+            <summary>
+            Decodes a base64-encoded string, given the encoding used by the encoded string in binary format (defaults to UTF-8).
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="base64"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Base64EncodeString(Axinom.Toolkit.HelpersContainerClasses.Convert,System.String,System.Text.Encoding)">
+            <summary>
+            Base64-encodes a string, given the encoding used by the string in binary format (defaults to UTF-8).
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="text"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Base32EncodeString(Axinom.Toolkit.HelpersContainerClasses.Convert,System.String,System.Text.Encoding)">
+            <summary>
+            Base32-encodes a string, given the encoding used by the string in binary format (defaults to UTF-8).
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="text"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Base32DecodeString(Axinom.Toolkit.HelpersContainerClasses.Convert,System.String,System.Text.Encoding)">
+            <summary>
+            Decodes a base32-encoded string, given the encoding used by the encoded string in binary format (defaults to UTF-8).
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="base32"/> is null.</exception>
+        </member>
+        <member name="F:Axinom.Toolkit.NetStandardHelpers.Base32Alphabet">
+            <summary>
+            This is not real base32. Rather, it usea a custom algorithm that does not have easily confusable characters.
+            From http://www.atrevido.net/blog/PermaLink.aspx?guid=debdd47c-9d15-4a2f-a796-99b0449aa8af
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.ByteArrayToHexString(Axinom.Toolkit.HelpersContainerClasses.Convert,System.Byte[])">
+            <summary>
+            Converts a byte array to a hex string, with no delimiting characters anywhere.
+            The returned hex string may use either uppercase or lowercase for the alphabetical characters.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.HexStringToByteArray(Axinom.Toolkit.HelpersContainerClasses.Convert,System.String)">
+            <summary>
+            Converts a hex string into a byte array.
+            </summary>
+            <param name="hexString">
+            A hex string with no delimiting characters (e.g. "aabbcc8811").
+            Both uppercase and lowercase may be used.
+            </param>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Serialize(Axinom.Toolkit.HelpersContainerClasses.DataContract,System.Object)">
+            <summary>
+            Uses <see cref="T:System.Runtime.Serialization.DataContractSerializer"/> to serialize an object.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will have the value UTF-8. You must take care
+            to also specify UTF-8 encoding when you write the resulting XML string to any output stream(s).
+            If you write the string to a non-UTF-8 output, encoding errors may occur during deserialization.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Deserialize``1(Axinom.Toolkit.HelpersContainerClasses.DataContract,System.String)">
+            <summary>
+            Deserializes an object using <see cref="T:System.Runtime.Serialization.DataContractSerializer"/>.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will be ignored, if present.
+            It is your responsibility to ensure that the XML is loaded into the string with the correct reader encoding.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="xml"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Deserialize(Axinom.Toolkit.HelpersContainerClasses.DataContract,System.String,System.Type)">
+            <summary>
+            Deserializes an object using <see cref="T:System.Runtime.Serialization.DataContractSerializer"/>.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will be ignored, if present.
+            It is your responsibility to ensure that the XML is loaded into the string with the correct reader encoding.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="xml"/> is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="type"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetAllExceptionMessages(Axinom.Toolkit.HelpersContainerClasses.Debug,System.Exception)">
+            <summary>
+            Gets the Message properties of an exception and all its inner exceptions and all the exception type names.
+            
+            Useful if you have top-level exceptions with pointless generic messages but also want to see deeper
+            without spamming out the entire call stack information for every exception.
+            </summary>
+        </member>
+        <member name="F:Axinom.Toolkit.NetStandardHelpers.MaxDebugStringDepth">
+            <summary>
+            How deep to go in the object hierarchy when creating a debug string for an object.
+            </summary>
+        </member>
+        <member name="F:Axinom.Toolkit.NetStandardHelpers.IndentString">
+            <summary>
+            The text value of one indent level in a debug string.
+            </summary>
+        </member>
+        <member name="F:Axinom.Toolkit.NetStandardHelpers.MaxCollectionItemsToList">
+            <summary>
+            Max number of collection items to display (per collection).
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.ToDebugString(Axinom.Toolkit.HelpersContainerClasses.Debug,System.Object)">
+            <summary>
+            Allows you to create a deep and detailed representation of an object tree, including properties of the objects.
+            Useful for debugging and reporting scenarios where <see cref="M:System.Object.ToString"/> simply does not give enough information.
+            </summary>
+            <remarks>
+            The maximum object tree depth is limited, to avoid outputting too deep (or potentially infinite) hierarchies.
+            Repeated objects are referred to by object ID, not output multiple times, to make the output more concise.
+            
+            <para>Not everything is displayed - there is some fitering and transformation done. The specifics are not listed here.
+            Some types have special handing to make them more meaningful (e.g. System.String, IEnumerable).</para>
+            
+            <para>Generally, the data returned varies per type and may change in the future.
+            Do not rely on the output remaining same in future versions, even for the same object.</para>
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.ShouldExpand(System.Reflection.TypeInfo)">
+            <summary>
+            Gets whether a type should be expanded in a debug string.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.IsMicrosoftOperatingSystem(Axinom.Toolkit.HelpersContainerClasses.Environment)">
+            <summary>
+            Gets whether the code is running on a Microsoft operating system that can be assumed to resemble Windows.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.IsNonMicrosoftOperatingSystem(Axinom.Toolkit.HelpersContainerClasses.Environment)">
+            <summary>
+            Gets whether the code is running on a non-Microsoft operating system that can be assumed to resemble Linux.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.ResolvePath(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String)">
+            <summary>
+            Resolves a relative path, using all the paths in the PATH environment variable as potential roots.
+            May be extended in the future to also use other potential roots for candidate paths.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.EnsureEmptyDirectory(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String)">
+            <summary>
+            Ensures that an empty directory exists at the specified path, emptying or creating it as needed.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.ClearDirectory(System.String)">
+            <summary>
+            Recursively deletes all files and subfolders from a folder.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.CopyFiles(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Copies files from one directory to another.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.RemoveRoot(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String,System.String)">
+            <summary>
+            Removes a root from a path, making it relative to the root.
+            
+            E.g. /a/b/c with a root of /a will become b/c
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.MakeUnique(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String)">
+            <summary>
+            Appends or prepends some text to the filename if needed in order to make the provided path unique.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.EnsureExecutePermission(Axinom.Toolkit.HelpersContainerClasses.Filesystem,System.String)">
+            <summary>
+            On non-Microsoft operating systems, grants execute permissions to the file at the specified path.
+            On Microsoft operating systems, does nothing.
+            </summary>
+            <remarks>
+            Permissions are granted to everyone. Do it manually if you wish to be more restrictive.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetBinDirectory(Axinom.Toolkit.HelpersContainerClasses.Filesystem)">
+            <summary>
+            Gets the directory containing the current application's entry point binary.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.NewCombGuid(Axinom.Toolkit.HelpersContainerClasses.Guid)">
+            <summary>
+            Generates a GUID that is in timestamp-sotrable order in SQL server.
+            Use this for generating row IDs that index well.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.FromBigEndianByteArray(Axinom.Toolkit.HelpersContainerClasses.Guid,System.Byte[])">
+            <summary>
+            Deserializes a GUID from a byte array that uses the big endian format for all components.
+            This format is often used by non-Microsoft tooling.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.NewCryptographicallySecureGuid(Axinom.Toolkit.HelpersContainerClasses.Guid)">
+            <summary>
+            Returns a new cryptographically secure GUID. The returned GUID shall be GUID v4 compatible.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Crop(Axinom.Toolkit.HelpersContainerClasses.Media,System.Int32,System.Int32,System.Double)">
+            <summary>
+            Calculates the required crop data in order to crop a picture into the desired aspect ratio.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetKeyIds(Axinom.Toolkit.HelpersContainerClasses.Media,System.IO.Stream)">
+            <summary>
+            Extracts the key IDs from a protected media file. The contents of the input stream can be any supported
+            type of presentation manifest or container file that contains key IDs.
+            </summary>
+            <remarks>
+            Currently supports Smooth Streaming and DASH manifests as input.
+            </remarks>
+            <returns>
+            The set of key IDs found or an empty set if the input was valid but contained no key IDs.
+            No duplicates will be returned.
+            </returns>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.CreatePsshBox(Axinom.Toolkit.HelpersContainerClasses.Media,System.Guid,System.Byte[])">
+            <summary>
+            Creates a PSSH (Protection System Specific Header) box suitable for embedding into a media
+            file that follows the ISO Base Media File Format specification.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GenerateRightsManagementHeader(Axinom.Toolkit.HelpersContainerClasses.PlayReady,System.Guid)">
+            <summary>
+            Generates a PlayReady Header for the provided key ID.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.NetStandardHelpers.RandomData">
+            <summary>
+            Implementation class to hold varibles for the helpers dealing with random data.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetWords(Axinom.Toolkit.HelpersContainerClasses.Random,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets a random bunch of text, size determined by number of words, limited to a max size.
+            No guarantees are made about the content of the words or any punctuation between the words,
+            except that there will be at least a space between every word.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="minWords"/> is negative.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="maxWords"/> is less than <paramref name="minWords"/>.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetWords(Axinom.Toolkit.HelpersContainerClasses.Random,System.Int32,System.Int32)">
+            <summary>
+            Gets a random bunch of text, size determined by number of words.
+            No guarantees are made about the content of the words or any punctuation between the words,
+            except that there will be at least a space between every word.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="minWords"/> is negative.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="maxWords"/> is less than <paramref name="minWords"/>.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Write``1(Axinom.Toolkit.HelpersContainerClasses.Struct,``0)">
+            <summary>
+            Writes the marshalled form of the structure to a buffer.
+            </summary>
+            <exception cref="!:ArgumentNullException">Thrown if value is null.</exception>
+            <exception cref="!:ArgumentException">Thrown if T is not a marshallable type.</exception>
+            <exception cref="T:System.IO.IOException">Thrown if something goes wrong when writing the structure.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Read``1(Axinom.Toolkit.HelpersContainerClasses.Struct,System.Byte[])">
+            <summary>
+            Reads the marshalled form of a structure from the specified buffer.
+            </summary>
+            <exception cref="!:ArgumentNullException">Thrown if buffer is null.</exception>
+            <exception cref="!:ArgumentException">Thrown if T is not a marshallable type.</exception>
+            <exception cref="T:System.IO.IOException">Thrown if something goes wrong when reading the structure.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Write``1(Axinom.Toolkit.HelpersContainerClasses.Struct,``0,System.IO.Stream)">
+            <summary>
+            Writes the marshalled form of the structure to the specified stream.
+            </summary>
+            <exception cref="!:ArgumentNullException">Thrown if value is null.</exception>
+            <exception cref="!:ArgumentNullException">Thrown if stream is null.</exception>
+            <exception cref="!:ArgumentException">Thrown if T is not a marshallable type.</exception>
+            <exception cref="T:System.IO.IOException">Thrown if something goes wrong when writing the structure.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.Read``1(Axinom.Toolkit.HelpersContainerClasses.Struct,System.IO.Stream)">
+            <summary>
+            Reads the marshalled form of a structure from the specified stream.
+            </summary>
+            <exception cref="!:ArgumentNullException">Thrown if stream is null.</exception>
+            <exception cref="!:ArgumentException">Thrown if T is not a marshallable type.</exception>
+            <exception cref="T:System.IO.IOException">Thrown if something goes wrong when reading the structure.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetTypeFromAnyAssembly(Axinom.Toolkit.HelpersContainerClasses.Type,System.String)">
+            <summary>
+            Gets a type from any loaded .NET assembly by its full namespace-qualified name.
+            Use this for dynamic type loading if you do not know the fully qualified assembly name (or do not want to use it).
+            
+            You may also provide a fully-qualified type name, in which case the specified type is returned.
+            This allows you to ignore the qualification level of input data, which is the optimal scenario.
+            
+            Returns null if the type is not found.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="typeName"/> is null.</exception>
+            <remarks>
+            Obviously, you're in trouble if you have multiple assemblies that both contain a type with the same name.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetTypeFromAnyAssembly(Axinom.Toolkit.HelpersContainerClasses.Type,System.String,System.Boolean)">
+            <summary>
+            Gets a type from any loaded .NET assembly by its full namespace-qualified name.
+            Use this for dynamic type loading if you do not know the fully qualified assembly name (or do not want to use it).
+            
+            You may also provide a fully-qualified type name, in which case the specified type is returned.
+            This allows you to ignore the qualification level of input data, which is the optimal scenario.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+            If <paramref name="throwOnError"/> is true, is thrown if typeName refers to an unknown type not in any assembly.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="typeName"/> is null.</exception>
+            <remarks>
+            Obviously, you're in trouble if you have multiple assemblies that both contain a type with the same name.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.HasAttribute``1(Axinom.Toolkit.HelpersContainerClasses.Type,System.Type)">
+            <summary>
+            Checks whether a type has at exactly one instance of a specific attribute type declared on it.
+            Inheritance chain is checked, as well.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GetAttribute``1(Axinom.Toolkit.HelpersContainerClasses.Type,System.Type)">
+            <summary>
+            Gets the single definition of an attribute from a type.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.IsPotentiallyConstructibleType(Axinom.Toolkit.HelpersContainerClasses.Type,System.String)">
+            <summary>
+            Determines whether a type, passed in by name, is a potentially constructible type.
+            </summary>
+            <param name="typeName">
+            The name of the type. Any level of qualification is accepted - it matches
+            the standard <see cref="M:System.Type.GetType(System.String)"/> behavior when looking for the type.
+            Can be null or empty (in which case, the method always returns false).
+            </param>
+            <remarks>
+            A potentially constructible type is one that:
+            * does not have any unspecified generic parameters;
+            * is a class or value type;
+            * is not abstract;
+            * has at least one public constructor (does not need to be parameterless).
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.IsPotentiallyConstructibleType(Axinom.Toolkit.HelpersContainerClasses.Type,System.String,System.Type)">
+            <summary>
+            Determines whether a type, passed in by name, is a constructible type that
+            also has a specified aspect defined on it (base class or interface).
+            </summary>
+            <param name="typeName">
+            The name of the type in a format acceptable to <see cref="M:Axinom.Toolkit.NetStandardHelpers.GetTypeFromAnyAssembly(Axinom.Toolkit.HelpersContainerClasses.Type,System.String)"/>. 
+            
+            Can be null or empty (in which case, the method always returns false).
+            </param>
+            <param name="requiredAspect">
+            The aspect (base class or interface) which is required on the type. May be null.
+            </param>
+            <remarks>
+            A potentially constructible type is one that:
+            * does not have any unspecified generic parameters;
+            * is a class or value type;
+            * is not abstract;
+            * has at least one public constructor (does not need to be parameterless).
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.GenerateWidevineCencHeader(Axinom.Toolkit.HelpersContainerClasses.Widevine,System.Guid)">
+            <summary>
+            Generates a Widevine CENC header for the provided key ID.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.XmlSerialize(Axinom.Toolkit.HelpersContainerClasses.XmlSerialization,System.Object)">
+            <summary>
+            Uses XML serialization to serialize an object.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will have the value UTF-8. You must take care
+            to also specify UTF-8 encoding when you write the resulting XML string to any output stream(s).
+            If you write the string to a non-UTF-8 output, encoding errors may occur during deserialization.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.XmlSerialize(Axinom.Toolkit.HelpersContainerClasses.XmlSerialization,System.Object,Axinom.Toolkit.XmlSerializationFlags)">
+            <summary>
+            Uses XML serialization to serialize an object. Flags may be specified to apply special behaviors.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will have the value UTF-8. You must take care
+            to also specify UTF-8 encoding when you write the resulting XML string to any output stream(s).
+            If you write the string to a non-UTF-8 output, encoding errors may occur during deserialization.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="obj"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.XmlDeserialize``1(Axinom.Toolkit.HelpersContainerClasses.XmlSerialization,System.String)">
+            <summary>
+            Uses XML serialization to deserialize an object.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will be ignored, if present.
+            It is your responsibility to ensure that the XML is loaded into the string with the correct reader encoding.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="xml"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.NetStandardHelpers.XmlDeserialize(Axinom.Toolkit.HelpersContainerClasses.XmlSerialization,System.String,System.Type)">
+            <summary>
+            Uses XML serialization to deserialize an object.
+            </summary>
+            <remarks>
+            The encoding attribute in the XML declaration will be ignored, if present.
+            It is your responsibility to ensure that the XML is loaded into the string with the correct reader encoding.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="xml"/> is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="type"/> is null.</exception>
+        </member>
+        <member name="T:Axinom.Toolkit.BaseTestClass">
+            <summary>
+            Base class to coordinate global tasks like log system initialization in automated test projects.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ChildLogSource">
+            <summary>
+            A log source that is the child of another log source and offloads all the log messages to its parent.
+            
+            This can be used to easily mark component ownership relations in logs, since it automatically appends
+            the source name to the source name of the parent, without having to be manually configured (or even known).
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ColoredConsole">
+            <summary>
+            Applies and restores console font colors with the assistance of a using block.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.CompositedStreamInfo">
+            <summary>
+            Represents one child stream in a compositing stream.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.CompositedStreamInfo.Length">
+            <summary>
+            The nominal length of the stream. The stream itself does not have to be this length.
+            For example, if it is a write stream, it may be created piece-by-piece as it is written.
+            It would be wasteful to allocate the entire stream at once.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.CompositingStream">
+            <summary>
+            A stream that reads from or writes to any number of fixed-length streams.
+            </summary>
+            <remarks>
+            For read operations, the child streams must be full-length (e.g. Stream.Length == CompositedStreamInfo.Length).
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.CompositingStream.GetAndSeekActionableStream">
+            <summary>
+            Gets the stream that is to be used at the current position and seeks it to the right offset, if required.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ConsoleLogListener">
+            <summary>
+            A log listener that writes the output to the standard output and standard error streams.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ContractException">
+            <summary>
+            Thrown if some piece of code violates the contract it is supposed to follow (e.g. returns null when it must not).
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.DebugLogListener">
+            <summary>
+            Writes log entries to debugger output.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.DelegateCommand">
+            <summary>
+            <see cref="T:System.Windows.Input.ICommand"/> implementation that outsources all responsibility via delegates.
+            </summary>
+            <remarks>
+            For internal consistency, a <see cref="P:Axinom.Toolkit.DelegateCommand.CanExecute"/> check is always done before <see cref="P:Axinom.Toolkit.DelegateCommand.Execute"/>.
+            An exception is thrown when an attempt is made to execute in a state where execution is not possible.
+            </remarks>
+        </member>
+        <member name="P:Axinom.Toolkit.DelegateCommand.Execute">
+            <summary>
+            Delegate for <see cref="M:System.Windows.Input.ICommand.Execute(System.Object)"/>. If not provided, the command does nothing.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.DelegateCommand.CanExecute">
+            <summary>
+            Delegate for <see cref="M:System.Windows.Input.ICommand.CanExecute(System.Object)"/>. If not provided, the command can always be executed.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.DelegateCommand.RaiseCanExecuteChanged">
+            <summary>
+            Allows you to raise the <see cref="E:Axinom.Toolkit.DelegateCommand.CanExecuteChanged"/> event from outside DelegateCommand.
+            If you do not call this method, <see cref="E:Axinom.Toolkit.DelegateCommand.CanExecuteChanged"/> is never raised.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.DelegatingLogListener">
+            <summary>
+            A simple log listener that shovels log lines off to a basic Write() method or similar.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.DurationLogger">
+            <summary>
+            Logs the duration of an operation into the logging system debug output. Just for diagnostics.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.EmbeddedPackage">
+            <summary>
+            Extracts a temporary copy of an embedded package consisting of one or more files
+            provides easy access to the package contents while the instance remains alive.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.EmbeddedPackage.Path">
+            <summary>
+            Gets the path to the directory that contains the package.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.EmbeddedPackage.#ctor(System.Reflection.Assembly,System.String,System.String[])">
+            <summary>
+            Extracts an embedded package from the specified assembly and enables its contents to be accessed.
+            </summary>
+            <param name="assembly">The assembly from which the package is to be loaded.</param>
+            <param name="namespace">The namespace of the files contained within the package (e.g. My.Stuff.Package1).</param>
+            <param name="filenames">The names of the files to extract.</param>
+        </member>
+        <member name="T:Axinom.Toolkit.EnvironmentException">
+            <summary>
+            Thrown if there is a nonspecific failure coming from the environment (i.e. anything external to code).
+            The primary purpose is to allow easy differentiation between logic related failures and environment related failures.
+            E.g. connection failure, file not found, invalid data loaded, etc.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ErrorReport">
+            <summary>
+            Sends an error report to the logging system.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ErrorReport.Log(System.Exception,System.Object,Axinom.Toolkit.LogSource)">
+            <summary>
+            Logs an error report with the logging system.
+            </summary>
+            <param name="exception">An exception that describes error that occurred.</param>
+            <param name="additionalData">Any additional data you wish to attach to the report.</param>
+            <param name="log">The log to write the output to. A suitable default will be selected if null.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.ErrorReport.FlattenException(System.Exception)">
+            <summary>
+            Exceptions may contain inner exceptions. This method transforms this
+            hierarchical structure into the simple collection of exceptions.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForBinaryReader.ReadBytesAndVerify(System.IO.BinaryReader,System.Int32)">
+            <summary>
+            Reads a number of bytes and verifies that this many were indeed read.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForGuid.ToBigEndianByteArray(System.Guid)">
+            <summary>
+            Serializes the GUID to a byte array, using the big endian format for all components.
+            This format is often used by non-Microsoft tooling.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForHttpResponseMessage.GetStatusLine(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Returns the status string describing the response; this includes the status code and the reason phrase.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForHttpResponseMessage.EnsureSuccessStatusCodeAndReportFailureDetailsAsync(System.Net.Http.HttpResponseMessage)">
+            <summary>
+            Ensures that the response message has a response code indicating success.
+            On failure, throws an exception that contains detailed information about the response message.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForHttpResponseMessage.EnsureSuccessStatusCodeAndReportFailureDetailsAsync(System.Net.Http.HttpResponseMessage,System.Threading.CancellationToken)">
+            <summary>
+            Ensures that the response message has a response code indicating success.
+            On failure, throws an exception that contains detailed information about the response message.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExtensionsForICollection">
+            <summary>
+            Extensions for <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForICollection.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds a range of items to a collection.
+            </summary>
+            <remarks>
+            The items are added one-by-one, so all CollectionChanged events and such will be raised for each item separately.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForICollection.UpdateCollection``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Replaces the contents of a collection by adding or removing single items.
+            Useful if you want to avoid removing items that will be re-added later or just switching collections.
+            This case often occurs with UI, when you don't want to animate out/in items that didn't change.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExtensionsForICommand">
+            <summary>
+            Extensions for <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForICommand.TryExecute(System.Windows.Input.ICommand,System.Object)">
+            <summary>
+            Executes the command but only if <see cref="M:System.Windows.Input.ICommand.CanExecute(System.Object)"/> returns true.
+            </summary>
+            <remarks>
+            Allows you to avoid needlessly verbose and possibly error-prone code of the following form:
+            <code><![CDATA[
+            if (command.CanExecute(param))
+            	command.Execute(param);
+            ]]></code>
+            </remarks>
+        </member>
+        <member name="T:Axinom.Toolkit.ExtensionsForIEnumerable">
+            <summary>
+            Extensions for <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForIEnumerable.ToObservableCollection``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Creates an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> from an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            The created collection is a copy and is not updated when the source is updated.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExtensionsForIValidatable">
+            <summary>
+            Extensions for <see cref="T:Axinom.Toolkit.IValidatable"/>. Enables easy validation of an entire object tree.
+            </summary>
+            <example><code><![CDATA[
+            public class Homepage : Page
+            {
+            	private MyConfiguration _configuration;
+            
+            	protected override OnLoad()
+            	{
+            		_configuration = MyConfiguration.LoadDefault();
+            		_configuration.Validate();
+            	}
+            }
+            
+            public class MyConfiguration : IValidatable
+            {
+            	public string SystemEmail;
+            	public int Width;
+            	
+            	public void Validate()
+            	{
+            		if (Width <= 0)
+            			this.ThrowValidationFailureFor("Width", "Must be greater than zero.");
+            			
+            		if (string.IsNullOrEmpty(SystemEmail))
+            			this.ThrowValidationFailureFor("SystemEmail", "Must be specified");
+            	}
+            }
+            ]]></code></example>
+            <seealso cref="T:Axinom.Toolkit.IValidatable"/>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForIValidatable.ThrowValidationFailureFor(Axinom.Toolkit.IValidatable,System.String,System.String)">
+            <summary>
+            Makes it somewhat easier to throw validation failures that have useful metadata on them (type and property name).
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForIValidatable.ThrowValidationFailure(Axinom.Toolkit.IValidatable,System.String)">
+            <summary>
+            Makes it somewhat easier to throw validation failures that have useful metadata on them (type).
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForObservableCollection.WeakObserve``1(System.Collections.ObjectModel.ObservableCollection{``0},System.Object,System.Action{``0},System.Action{``0})">
+            <summary>
+            Weakly observes the observable collection during the lifetime of the anchor object or until disposed.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForStream.ReadAndVerify(System.IO.Stream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads a number of bytes from the stream and verifies that the desired number of bytes was actually read.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForStream.ReadByteAndVerify(System.IO.Stream)">
+            <summary>
+            Reads a single byte from the stream and throws an EndOfStreamException if there is no more data in the stream.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForStream.CopyBytes(System.IO.Stream,System.IO.Stream,System.Int64)">
+            <summary>
+            Copies bytes from one stream to another, using a generally performant buffered copy.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForStream.SeekOrReadForward(System.IO.Stream,System.Int64)">
+            <summary>
+            Seeks a stream forward or reads the equivalent number of bytes if the stream does not support seeking.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForString.RemoveSuffix(System.String,System.String)">
+            <summary>
+            Removes one or more instances of a suffix from a string.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForString.AsNonemptyLines(System.String)">
+            <summary>
+            Splits a string into nonempty lines, using either \r or \n as the delimiter.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.Forget(System.Threading.Tasks.Task)">
+            <summary>
+            Just a hint to the compiler that I know I am not doing anything with the task
+            and it should shut up about it and not spam me with a warning.
+            
+            NB! This silently ignores exceptions that reach this point!
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.LogExceptions(System.Threading.Tasks.Task)">
+            <summary>
+            Logs any exceptions from the task to the default log source.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.LogExceptions(System.Threading.Tasks.Task,Axinom.Toolkit.LogSource)">
+            <summary>
+            Logs any exceptions from the task to the given log source.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.LogExceptions``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Logs any exceptions from the task to the default log source.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.LogExceptions``1(System.Threading.Tasks.Task{``0},Axinom.Toolkit.LogSource)">
+            <summary>
+            Logs any exceptions from the task to the given log source.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.IgnoreContext(System.Threading.Tasks.Task)">
+            <summary>
+            Signals that the continuation does not have to run using the current synchronization context.
+            A more human-readable name for the commonly used ConfigureAwait(false) pattern.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.IgnoreContext``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Signals that the continuation does not have to run using the current synchronization context.
+            A more human-readable name for the commonly used ConfigureAwait(false) pattern.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.WaitAndUnwrapExceptions(System.Threading.Tasks.Task)">
+            <summary>
+            Synchronously waits for the task to complete and unwraps any exceptions.
+            Without using this, you get annoying AggregateExceptions that mess up all your error messages and stack traces.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.WaitAndUnwrapExceptions``1(System.Threading.Tasks.Task{``0})">
+            <summary>
+            Synchronously waits for the task to complete and unwraps any exceptions.
+            Without using this, you get annoying AggregateExceptions that mess up all your error messages and stack traces.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.WithAbandonment``1(System.Threading.Tasks.Task{``0},System.Threading.CancellationToken)">
+            <summary>
+            Abandons the task after a cancellation is signaled and throws TaskCanceledException.
+            The task continues to run in reality but will appear cancelled to any callers.
+            </summary>
+            <exception cref="T:System.Threading.Tasks.TaskCanceledException">Thrown when the task is abandoned.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForTask.WithAbandonment(System.Threading.Tasks.Task,System.Threading.CancellationToken)">
+            <summary>
+            Abandons the task after a cancellation is signaled and throws TaskCanceledException.
+            The task continues to run in reality but will appear cancelled to any callers.
+            </summary>
+            <exception cref="T:System.Threading.Tasks.TaskCanceledException">Thrown when the task is abandoned.</exception>
+        </member>
+        <member name="T:Axinom.Toolkit.ExtensionsForUri">
+            <summary>
+            Extends the <see cref="T:System.Uri"/> class. See <see cref="T:Axinom.Toolkit.QueryString"/>.
+            </summary>
+            <example><code><![CDATA[
+            public Uri GetNextItemUrl()
+            {
+            	QueryString qs = HttpContext.Current.Request.Url.GetQueryString();
+            	
+            	qs["Advanced"] = "true";
+            	
+            	if (qs.Contains("ObjectID"))
+            		qs["ObjectID"] = (int.Parse(qs["ObjectID"]) + 1).ToString();
+            	else
+            		qs["ObjectID"] = 1;
+            	
+            	
+            	return HttpContext.Current.Request.Url.WithQueryString(qs);
+            }
+            ]]></code></example>
+            <seealso cref="T:Axinom.Toolkit.QueryString"/>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForUri.WithQueryString(System.Uri,Axinom.Toolkit.QueryString)">
+            <summary>
+            Adds a query string to a <see cref="T:System.Uri"/> or replaces the existing query string.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExtensionsForUri.GetQueryString(System.Uri)">
+            <summary>
+            Gets the query string of the <see cref="T:System.Uri"/> as a <see cref="T:Axinom.Toolkit.QueryString"/> instance.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExternalTool">
+            <summary>
+            An external tool (exe, bat or other) that can be executed by automation when needed.
+            Provides standard functionality such as output capture and reacting to meaningful results (e.g. throw on error).
+            </summary>
+            <remarks>
+            To use, create an instance, fill the properties and call Start/ExecuteAsync.
+            </remarks>
+        </member>
+        <member name="F:Axinom.Toolkit.ExternalTool.LastResortTimeout">
+            <summary>
+            There are various operations that should complete near-instantly but for
+            reasons of operating systems magic may hang. This timeout controls when we give up.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.ExecutablePath">
+            <summary>
+            Absolute or relative path to the executable. Relative paths are resolved mostly
+            according to OS principles (PATH environment variable and potentially some others).
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.Arguments">
+            <summary>
+            Arguments string to provide to the executable.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.EnvironmentVariables">
+            <summary>
+            Any environment variables to add to the normal environment variable set.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.WorkingDirectory">
+            <summary>
+            Defaults to the working directory of the current process.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.OutputFilePath">
+            <summary>
+            Copies the standard output and standard error streams to the specified file if set.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.ResultHeuristics">
+            <summary>
+            Enables the result processing logic to be fine-tuned.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.StandardOutputConsumer">
+            <summary>
+            Allows a custom action to consume data from the standard output stream.
+            Note that this will make standard output stream contents invisible to ExternalTool.
+            The action is executed on a dedicated thread.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.StandardErrorConsumer">
+            <summary>
+            Allows a custom action to consume data from the standard error stream.
+            Note that this will make standard error stream contents invisible to ExternalTool.
+            The action is executed on a dedicated thread.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.StandardInputProvider">
+            <summary>
+            Allows a custom action to provide data on the standard input stream.
+            The action is executed on a dedicated thread.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalTool.CensoredStrings">
+            <summary>
+            If set, any strings in this collection are censored in log output (though not stdout/stderr).
+            Useful if you pass credentials on the command line.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Start">
+            <summary>
+            Starts a new instance of the external tool. Use this if you want more detailed control over the process
+            e.g. the ability to terminate it or to inspect the running process. Otherwise, just use the synchronous Execute().
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Execute(System.TimeSpan)">
+            <summary>
+            Synchronously executes an instance of the external tool and consumes the result.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.ExecuteAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously executes an instance of the external tool and consumes the result.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Execute(System.String,System.String,System.TimeSpan)">
+            <summary>
+            Helper method to quickly execute a command with arguments and consume the result.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.ExecuteAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Helper method to quickly execute a command with arguments and consume the result.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExternalTool.Instance">
+            <summary>
+            A started instance of an external tool. May have finished running already.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Instance.GetResult(System.TimeSpan)">
+            <summary>
+            Waits for the tool to exit and retrieves the result.
+            If a timeout occurs, the running external tool process is killed.
+            </summary>
+            <exception cref="T:System.TimeoutException">Thrown if a timeout occurs.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Instance.GetResultAsync(System.Threading.CancellationToken)">
+            <summary>
+            Waits for the tool to exit and retrieves the result.
+            If the cancellation token is cancelled, the running external tool process is killed.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalTool.Instance.#ctor(Axinom.Toolkit.ExternalTool)">
+            <summary>
+            Creates a new instance of an external tool, using the specified template. Does not start it yet.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExternalTool.Instance.CrashDialogSuppressionBlock">
+            <summary>
+            We want to suppress any Windows error reporting dialogs that occur due to the external tool crashing.
+            During the lifetime of this object, this is done for the current process and any started process
+            will inherit this configuration from the current process, so ensure this object is alive during child start.
+            
+            Note that this class also acts as a mutex.
+            </summary>
+            <remarks>
+            This class does nothing on non-Windows operating systems.
+            </remarks>
+        </member>
+        <member name="F:Axinom.Toolkit.ExternalTool.Instance.CrashDialogSuppressionBlock._errorModeLock">
+            <summary>
+            We only want one thread to be touching the error mode at the same time.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExternalToolResult">
+            <summary>
+            The result of executing an instance of an external tool.
+            Available once the external tool has finished its work.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalToolResult.ForwardOutputs">
+            <summary>
+            Forwards the external tool's standard output to the current app's standard output.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalToolResult.Consume">
+            <summary>
+            Consumes the result. This forwards the output and throws an exception if the tool execution failed.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalToolResult.VerifySuccess">
+            <summary>
+            Verifies that the tool execution was successful. Throws an exception if any failure occurred.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ExternalToolResult.DetermineSuccess">
+            <summary>
+            Detects whether any failures occurred during external tool usage.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ExternalToolResultHeuristics">
+            <summary>
+            Enables the behavior of the result processing system to be tuned for a particular tool.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.ExternalToolResultHeuristics.StandardErrorIsNotError">
+            <summary>
+            Some tools send output to the standard error stream even when there is no error occurring.
+            Turn on this flag to enable treating the standard error stream as just a secondary output stream.
+            Defaults to false - any output in standard error stream is treated as a failure.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.FilteringLogListener">
+            <summary>
+            A log listener that wraps another log listener and filters the entries it passes to it.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.FilteringLogListener.MinimumSeverity">
+            <summary>
+            Gets or sets the minimum log level severity required to let an entry through the filter.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.GrpcAddress">
+            <summary>
+            Represents a host[:authority][:port] format address for gRPC service addressing.
+            Authority defaults to host if absent. Port defaults to 82 if absent.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.Helpers">
+            <summary>
+            Entry point to Axinom Toolkit helper methods.
+            </summary>
+            <remarks>
+            This class references various container classes that are provided extension methods by the different Axinom Toolkit
+            libraries. This style exists because there is some overlap between the different platforms (e.g. we want to offer
+            general purpose PlayReady helper methods and also specialized UWP PlayReady helper methods) and extension methods
+            are the only sensible way to do this without forcing the caller to dig for the right platform-specific class.
+            </remarks>
+        </member>
+        <member name="T:Axinom.Toolkit.HelpersContainerClasses">
+            <summary>
+            For internal purposes only - do not ever use this class.
+            </summary>
+            <remarks>
+            Just have one empty class here for each helper method container you wish to provide above.
+            These are in a separate subclass just to make them harder to discover by accident, causing less confusfion.
+            </remarks>
+        </member>
+        <member name="T:Axinom.Toolkit.ILogListener">
+            <summary>
+            Implements a thread-safe log listener that accepts log entries that come from various log sources.
+            The log listener will be disposed of automatically when it is unregistered or when the appplication exits.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.ILogListener.OnWrite(System.DateTimeOffset,Axinom.Toolkit.LogEntrySeverity,System.String,System.Func{System.String})">
+            <summary>
+            Notifies the listener that an entry has been written to the log.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.IValidatable">
+            <summary>
+            A generic interface for validatable objects. Used to avoid having to re-implement an IValidatable
+            interface in every project or - even worse - in every component. There also exist convenient
+            extensions methods for the IValidatable interface, provided by <see cref="T:Axinom.Toolkit.ExtensionsForIValidatable"/>.
+            </summary>
+            <seealso cref="T:Axinom.Toolkit.ExtensionsForIValidatable"/>
+        </member>
+        <member name="M:Axinom.Toolkit.IValidatable.Validate">
+            <summary>
+            Validates the state of the object. Throws exception on failure.
+            </summary>
+            <exception cref="T:Axinom.Toolkit.ValidationException">Thrown if the state of the object is not valid.</exception>
+        </member>
+        <member name="T:Axinom.Toolkit.Log">
+            <summary>
+            General purpose lightweight logging class. Not super optimized but probably good enough.
+            Register one or more log listeners to actually make the log entries go somewhere.
+            </summary>
+            <remarks>
+            Thread-safe - this object may be used from any thread.
+            
+            You should call Dispose() before exiting the application to dispose of the log listeners.
+            </remarks>
+        </member>
+        <member name="P:Axinom.Toolkit.Log.Default">
+            <summary>
+            Gets the default log instance, which accepts listener registrations and is the top-level owner of child log sources.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.Log.RegisterListener(Axinom.Toolkit.ILogListener)">
+            <summary>
+            Registers a log listener to receive log entries. It will automatically be disposed of when the application exits.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.Log.#ctor">
+            <summary>
+            Do not use. Internal for testing purposes only.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.LogSource">
+            <summary>
+            Represents a log source - the place where log entries enter the logging system.
+            Thread-safe - this object may be used from any thread.
+            </summary>
+            <remarks>
+            You will probably want to associate a log source with every specific component of your application.
+            You can accomplish this by creating hierarchical child log sources with the name of every component.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.LogSource.CreateChildSource(System.String)">
+            <summary>
+            Creates a log source that is a child of the current one. Log entries from the child log source will be
+            marked with the name of the child log source appended to the name of the current log source.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.MultiEndianBinaryReader">
+            <summary>
+            Binary reader with variable byte endianness.
+            Note that text reading does not support big-endian byte order. This is for binary only.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.MultiEndianBinaryReader.ByteOrder">
+            <summary>
+            Gets or sets the byte order the reader uses for its operations.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadInt16">
+            <summary>
+            Reads a 2-byte signed integer from the current stream and advances the current position of the stream by two bytes.
+            </summary>
+            <returns>
+            A 2-byte signed integer read from the current stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadUInt16">
+            <summary>
+            Reads a 2-byte unsigned integer from the current stream using little-endian encoding and advances the position of the
+            stream by two bytes.
+            </summary>
+            <returns>
+            A 2-byte unsigned integer read from this stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadInt32">
+            <summary>
+            Reads a 4-byte signed integer from the current stream and advances the current position of the stream by four bytes.
+            </summary>
+            <returns>
+            A 4-byte signed integer read from the current stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadUInt32">
+            <summary>
+            Reads a 4-byte unsigned integer from the current stream and advances the position of the stream by four bytes.
+            </summary>
+            <returns>
+            A 4-byte unsigned integer read from this stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadInt64">
+            <summary>
+            Reads an 8-byte signed integer from the current stream and advances the current position of the stream by eight bytes.
+            </summary>
+            <returns>
+            An 8-byte signed integer read from the current stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadUInt64">
+            <summary>
+            Reads an 8-byte unsigned integer from the current stream and advances the position of the stream by eight bytes.
+            </summary>
+            <returns>
+            An 8-byte unsigned integer read from this stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadSingle">
+            <summary>
+            Reads a 4-byte floating point value from the current stream and advances the current position of the stream by four
+            bytes.
+            </summary>
+            <returns>
+            A 4-byte floating point value read from the current stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="M:Axinom.Toolkit.MultiEndianBinaryReader.ReadDouble">
+            <summary>
+            Reads an 8-byte floating point value from the current stream and advances the current position of the stream by eight
+            bytes.
+            </summary>
+            <returns>
+            An 8-byte floating point value read from the current stream.
+            </returns>
+            <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
+            <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
+            <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
+        </member>
+        <member name="T:Axinom.Toolkit.MultiEndianBinaryWriter">
+            <summary>
+            Binary writer with variable byte endianness.
+            Note that text writing does not support big-endian byte order. This is for binary only.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.MultiEndianBinaryWriter.ByteOrder">
+            <summary>
+            Gets or sets the byte order the writer uses for its operations.
+            </summary>
+        </member>
+        <member name="F:Axinom.Toolkit.PlayReadyConstants.SystemId">
+            <summary>
+            Protection System ID used in various manifests and metadata.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.QueryString">
+            <summary>
+            Represents the query string of a <see cref="T:System.Uri"/> and allows its constituent parameters to be easily modified.
+            Axinom Toolkit provides <see cref="T:System.Uri"/> extension methods to enable simple co-operation of the two types.
+            Note that query string parameter names are case-insensitive.
+            
+            See <see cref="T:Axinom.Toolkit.ExtensionsForUri"/>.
+            </summary>
+            <remarks>
+            A null parameter value has the meaning of a valueless parameter ("?name").
+            An empty parameter value has the meaning of an empty value ("?name=").
+            Any other parameter value has the meaning of a real value ("?name=value").
+            </remarks>
+            <example><code><![CDATA[
+            public Uri GetNextItemUrl()
+            {
+            	QueryString qs = HttpContext.Current.Request.Url.GetQueryString();
+            	
+            	qs["Advanced"] = "true";
+            	
+            	if (qs.Contains("ObjectID"))
+            		qs["ObjectID"] = (int.Parse(qs["ObjectID"]) + 1).ToString();
+            	else
+            		qs["ObjectID"] = 1;
+            	
+            	return HttpContext.Current.Request.Url.WithQueryString(qs);
+            }
+            ]]></code></example>
+            <seealso cref="T:Axinom.Toolkit.ExtensionsForUri"/>
+        </member>
+        <member name="M:Axinom.Toolkit.QueryString.#ctor">
+            <summary>
+            Initializes an empty QueryString instance without any defined query string parameters.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.SemaphoreLock">
+            <summary>
+            A lock construct that is based on a SemaphoreSlim instance. Supports asyncronous and multi-threaded use.
+            Each "lock" is one decrement/increment pair for a semaphore. The idea is to allow semaphores to be used as async-safe locks.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.StreamWriterLogListener">
+            <summary>
+            A log listener that outputs the logging statements to a StreamWriter.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.TemporaryDirectory">
+            <summary>
+            This class simplifies the creation of temporary folders into the current user's temporary files folder.
+            You can use the class in combination with the using statement to automatically delete the folder
+            once you have finished using it.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.TemporaryDirectory.#ctor">
+            <summary>
+            Creates a temporary directory with a random name.
+            </summary>
+        </member>
+        <member name="M:Axinom.Toolkit.TemporaryDirectory.#ctor(System.String)">
+            <summary>
+            Creates a temporary directory with a custom prefix on the directory name.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.TraceLogListener">
+            <summary>
+            Writes log entries to trace output.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.UnreachableCodeException">
+            <summary>
+            Used in to ensure that a piece of code that should never be reachable will not accidentally execute.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.ValidationException">
+            <summary>
+            A generic validation exception. Used by <see cref="T:Axinom.Toolkit.IValidatable"/> but can also be used by other classes.
+            </summary>
+            <remarks>
+            The exception only carries one message about a validation failure. In theory, you might have an object with
+            multiple invalid fields but reporting all such fields on an object is almost never necessary. Therefore,
+            carrying multiple failures is not supported by this exception, for simplicity.
+            </remarks>
+        </member>
+        <member name="T:Axinom.Toolkit.WeakContainer`1">
+            <summary>
+            Basic container that does not hold any references to the items it contains.
+            Exposes only basic functions to keep the implementation simple.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            class NavigationManager
+            {
+            	private WeakContainer<Page> _cache = new WeakContainer<Page>();
+            	
+            	protected void OnNavigating(Uri pageUrl)
+            	{
+            		foreach (Page page in _cache)
+            		{
+            			if (page.Url == pageUrl)
+            			{
+            				// Found cached page!
+            				CurrentPage = page;
+            				return;
+            			}
+            		}
+            		
+            		// Page not in cache or was already garbage collected. Create new instance.
+            		Page page = InitializePage(pageUrl);
+            		_cache.Add(page);
+            		CurrentPage = page;
+            	}
+            	
+            	// [...]
+            ]]>
+            </code>
+            </example>
+            <threadsafety instance="false" />
+        </member>
+        <member name="M:Axinom.Toolkit.WeakContainer`1.Add(`0)">
+            <summary>
+            Adds an item to the container by WeakReference.
+            The same item can be added multiple times.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakContainer`1.Remove(`0)">
+            <summary>
+            Removes an item from the container, if the container has it.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakContainer`1.Contains(`0)">
+            <summary>
+            Checks whether the container has an item.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="item"/> is null.</exception>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakContainer`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+            An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakContainer`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Generic.IEnumerator`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="T:Axinom.Toolkit.WeakEventListener`3">
+            <summary>
+            Implements a weak event listener that allows the owner to be garbage
+            collected if its only remaining link is an event handler.
+            </summary>
+            <typeparam name="TInstance">Type of instance listening for the event.</typeparam>
+            <typeparam name="TSource">Type of source for the event.</typeparam>
+            <typeparam name="TEventArgs">Type of event arguments for the event.</typeparam>
+            <remarks>Disposal of the instance is thread-safe. Do not modify callbacks during use.</remarks>
+        </member>
+        <member name="F:Axinom.Toolkit.WeakEventListener`3._weakInstance">
+            <summary>
+            WeakReference to the instance listening for the event.
+            </summary>
+        </member>
+        <member name="P:Axinom.Toolkit.WeakEventListener`3.OnEventAction">
+            <summary>
+            Gets or sets the method to call when the event fires.
+            </summary>
+            <remarks>
+            Not safe to modify after any methods on the instance have been called.
+            </remarks>
+        </member>
+        <member name="P:Axinom.Toolkit.WeakEventListener`3.OnDetachAction">
+            <summary>
+            Gets or sets the method to call when detaching from the event.
+            Guaranteed to be called only once (or never, if reference stays alive forever).
+            </summary>
+            <remarks>
+            Not safe to modify after any methods on the instance have been called.
+            </remarks>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakEventListener`3.#ctor(`0)">
+            <summary>
+            Initializes a new instances of the WeakEventListener class.
+            </summary>
+            <param name="instance">Instance subscribing to the event.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakEventListener`3.OnEvent(`1,`2)">
+            <summary>
+            Handler for the subscribed event calls OnEventAction to handle it.
+            </summary>
+            <param name="source">Event source.</param>
+            <param name="eventArgs">Event arguments.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.WeakEventListener`3.Detach">
+            <summary>
+            Detaches from the subscribed event.
+            </summary>
+        </member>
+        <member name="T:Axinom.Toolkit.Wildcard">
+            <summary>
+            A <i>*.jpeg</i> style wildcard matcher running on the <see cref="N:System.Text.RegularExpressions"/> engine.
+            Supports both the ? and * metacharacters in the wildcard expression.
+            </summary>
+            <example>
+            <code><![CDATA[
+            Wildcard wildcard = new Wildcard("*.exe");
+            
+            foreach (string filename in Directory.GetFiles(@"C:\Windows"))
+            {
+            	if (wildcard.IsMatch(filename))
+            		Console.WriteLine("Match: {0}", filename);
+            }
+            ]]></code>
+            </example>
+        </member>
+        <member name="M:Axinom.Toolkit.Wildcard.#ctor(System.String)">
+            <param name="pattern">The wildcard pattern to match. ? and * metacharacters are supported.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.Wildcard.#ctor(System.String[])">
+            <param name="patterns">One or more wildcard patterns to match. ? and * metacharacters are supported.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.Wildcard.#ctor(System.String,System.Text.RegularExpressions.RegexOptions)">
+            <param name="pattern">The wildcard pattern to match. ? and * metacharacters are supported.</param>
+            <param name="options">A combination of one or more <see cref="T:System.Text.RegularExpressions.RegexOptions"/>.</param>
+        </member>
+        <member name="M:Axinom.Toolkit.Wildcard.#ctor(System.String[],System.Text.RegularExpressions.RegexOptions)">
+            <param name="patterns">One or more wildcard patterns to match. ? and * metacharacters are supported.</param>
+            <param name="options">A combination of one or more <see cref="T:System.Text.RegularExpressions.RegexOptions"/>.</param>
+        </member>
+        <member name="T:Axinom.Toolkit.XmlSerializationFlags">
+            <summary>
+            Flags that apply special behaviors during XML serialization.
+            </summary>
+        </member>
+        <member name="F:Axinom.Toolkit.XmlSerializationFlags.ClearNamespaceDefinitions">
+            <summary>
+            Removes the potentially unnecessary standard xmlns:xsi and xmlns:xsd declarations from the root node.
+            This may have undesirable side-effects with custom namespaces and other functionality,
+            so be careful - make sure you really do not need these namespace declarations.
+            </summary>
+        </member>
+    </members>
+</doc>
