@@ -78,6 +78,11 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
         }
     }
 
+    $compositeToken = New-LicenseToken
+    $compositeToken.content_key_usage_policies = @(
+        $permissivePolicy
+    )
+
     foreach ($key in $keys) {
         # We generate a unique license token for each key. This is not strictly required (we could generate
         # one for the entire set of keys) but is likely the more useful option for testing client behavior.
@@ -88,6 +93,7 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
         )
 
         $token = $token | Add-ContentKey -KeyId $key.key_id -KeyAsBase64 $key.key_value_base64 -CommunicationKeyAsBase64 $communicationKeyAsBase64 -KeyUsagePolicyName $permissivePolicy.name
+        $compositeToken = $compositeToken | Add-ContentKey -KeyId $key.key_id -KeyAsBase64 $key.key_value_base64 -CommunicationKeyAsBase64 $communicationKeyAsBase64 -KeyUsagePolicyName $permissivePolicy.name
 
         # A token must be exported to structure it for use by DASH clients.
         $key.license_token = $token | Export-LicenseToken -CommunicationKeyId $communicationKeyId -CommunicationKeyAsBase64 $communicationKeyAsBase64
@@ -96,6 +102,13 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
 
         Set-Content -Path "$($key.key_id).token.txt" -Value $key.license_token
     }
+
+    # A token must be exported to structure it for use by DASH clients.
+    $exportedCompositeToken = $compositeToken | Export-LicenseToken -CommunicationKeyId $communicationKeyId -CommunicationKeyAsBase64 $communicationKeyAsBase64
+
+    Write-Verbose "Composite license token is $exportedCompositeToken"
+
+    Set-Content -Path "AllKeys.token.txt" -Value $exportedCompositeToken
 
     Write-Host "Generated license tokens for each key and exported each as <keyid>.token.txt."
 } else {
