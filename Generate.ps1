@@ -1,3 +1,7 @@
+[CmdletBinding()]
+param(
+)
+
 $ErrorActionPreference = "Stop"
 
 # This script generates a set of DRM parameters that can be used with the DASH-IF live source simulator, including:
@@ -33,12 +37,20 @@ for ($i = 0; $i -lt $keyCount; $i++) {
 
     $keys += @{
         key_id = $key_id
+        key_id_hex = [Axinom.Toolkit.NetStandardHelpers]::ByteArrayToHexString($null,
+            [Axinom.Toolkit.ExtensionsForGuid]::ToBigEndianByteArray($key_id))
         key_value = $key_value
         key_value_base64 = [Convert]::ToBase64String($key_value)
+        key_value_hex = [Axinom.Toolkit.NetStandardHelpers]::ByteArrayToHexString($null, $key_value)
 
         playready_init_data_base64 = $playReadyInitializationDataAsBase64
         widevine_init_data_base64 = $widevineInitializationDataAsBase64
     }
+
+    # The hexadecimal value might be useful for plugging into mp4encrypt.
+    Write-Host "Key $($i + 1) has ID $key_id (GUID) or $($keys[$i].key_id_hex) (hex) and key value $($keys[$i].key_value_base64) (base64) or $($keys[$i].key_value_hex) (hex)"
+
+    Write-Verbose ($keys[$i] | ConvertTo-Json)
 }
 
 Write-Host "Generated $keyCount keys."
@@ -79,6 +91,8 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
 
         # A token must be exported to structure it for use by DASH clients.
         $key.license_token = $token | Export-LicenseToken -CommunicationKeyId $communicationKeyId -CommunicationKeyAsBase64 $communicationKeyAsBase64
+
+        Write-Verbose "License token for $($key.key_id) is $($key.license_token)"
     }
 
     Write-Host "Generated license tokens for each key."
@@ -111,6 +125,9 @@ foreach ($key in $keys) {
 <pssh xmlns="urn:mpeg:cenc:2013">$($key.widevine_init_data_base64)</pssh>
 "@
     $cpix.DrmSystems.Add($widevineSignaling)
+
+    Write-Verbose "DASH manifest PlayReady signaling for $($key.key_id) is $($playReadySignaling.ContentProtectionData)"
+    Write-Verbose "DASH manifest Widevine signaling for $($key.key_id) is $($widevineSignaling.ContentProtectionData)"
 }
 
 $cpix.Save("DrmData.xml")
