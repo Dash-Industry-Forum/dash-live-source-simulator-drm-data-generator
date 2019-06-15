@@ -93,9 +93,11 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
         $key.license_token = $token | Export-LicenseToken -CommunicationKeyId $communicationKeyId -CommunicationKeyAsBase64 $communicationKeyAsBase64
 
         Write-Verbose "License token for $($key.key_id) is $($key.license_token)"
+
+        Set-Content -Path "$($key.key_id).token.txt" -Value $key.license_token
     }
 
-    Write-Host "Generated license tokens for each key."
+    Write-Host "Generated license tokens for each key and exported each as <keyid>.token.txt."
 } else {
     Write-Warning "Without a communication key, the license tokens cannot be generated. Without license tokens, clients will not be able to obtain licenses from the Axinom DRM license server. You may still be able to use the keys with a different license server."
 }
@@ -119,6 +121,7 @@ foreach ($key in $keys) {
     $playReadySignaling.ContentProtectionData = @"
 <pssh xmlns="urn:mpeg:cenc:2013">$($key.playready_init_data_base64)</pssh>
 <laurl xmlns="$dashifNamespace">https://axinom-drm-bearer-token-proxy.azurewebsites.net/PlayReady/AcquireLicense</laurl>
+<authzurl xmlns="$dashifNamespace">https://dashif-test-vectors-authz.azurewebsites.net/Authorize/ByPredefinedTokenId/$($key.key_id)</authzurl>
 "@
     $cpix.DrmSystems.Add($playReadySignaling)
 
@@ -128,6 +131,7 @@ foreach ($key in $keys) {
     $widevineSignaling.ContentProtectionData = @"
 <pssh xmlns="urn:mpeg:cenc:2013">$($key.widevine_init_data_base64)</pssh>
 <laurl xmlns="$dashifNamespace">https://axinom-drm-bearer-token-proxy.azurewebsites.net/Widevine/AcquireLicense</laurl>
+<authzurl xmlns="$dashifNamespace">https://dashif-test-vectors-authz.azurewebsites.net/Authorize/ByPredefinedTokenId/$($key.key_id)</authzurl>
 "@
     $cpix.DrmSystems.Add($widevineSignaling)
 
