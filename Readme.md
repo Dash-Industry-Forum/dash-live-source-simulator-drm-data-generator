@@ -6,4 +6,10 @@ This script generates DRM data for use with the live source simulator. For more 
 
 Run the script and answer any prompts.
 
-Add the `-Verbose` parameter to see intermediate outputs.
+The output will be:
+
+* Some useful data in console for human-readable consumption.
+* A CPIX file DrmData.xml describing what a packager must do with the content to apply the generated data.
+* A set of `<keyid>.token.txt` files with Axinom DRM license tokens ready to be pasted into the [DASH-IF test vectors authorization token provider](https://github.com/Dash-Industry-Forum/test-vectors-drm-authz-token-provider).
+
+Add the `-Verbose` parameter to see intermediate data dumps.
