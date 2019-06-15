@@ -100,7 +100,10 @@ if ($communicationKeyId -or $communicationKeyAsBase64) {
     Write-Warning "Without a communication key, the license tokens cannot be generated. Without license tokens, clients will not be able to obtain licenses from the Axinom DRM license server. You may still be able to use the keys with a different license server."
 }
 
+$dashifNamespace = "https://dashif.org/"
+
 # We export the data set as a CPIX document.
+# Here, we also generate all the MPD XML to be added.
 $cpix = New-Object Axinom.Cpix.CpixDocument
 
 foreach ($key in $keys) {
@@ -115,6 +118,7 @@ foreach ($key in $keys) {
     $playReadySignaling.KeyId = $key.key_id
     $playReadySignaling.ContentProtectionData = @"
 <pssh xmlns="urn:mpeg:cenc:2013">$($key.playready_init_data_base64)</pssh>
+<laurl xmlns="$dashifNamespace">https://axinom-drm-bearer-token-proxy.azurewebsites.net/PlayReady/AcquireLicense</laurl>
 "@
     $cpix.DrmSystems.Add($playReadySignaling)
 
@@ -123,6 +127,7 @@ foreach ($key in $keys) {
     $widevineSignaling.KeyId = $key.key_id
     $widevineSignaling.ContentProtectionData = @"
 <pssh xmlns="urn:mpeg:cenc:2013">$($key.widevine_init_data_base64)</pssh>
+<laurl xmlns="$dashifNamespace">https://axinom-drm-bearer-token-proxy.azurewebsites.net/Widevine/AcquireLicense</laurl>
 "@
     $cpix.DrmSystems.Add($widevineSignaling)
 
